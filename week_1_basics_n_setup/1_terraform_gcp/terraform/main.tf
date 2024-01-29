@@ -8,17 +8,18 @@ terraform {
 }
 
 provider "google" {
-  project = "sinuous-studio-412717"
-  region  = "us-central1"
+  credentials = var.credentials
+  project     = var.project
+  region      = var.region
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name          = "sinuous-studio-412717-terra-bucket"
-  location      = "US"
+  name          = var.gcs_bucket_name
+  location      = var.location
   force_destroy = true
 
 
-   lifecycle_rule {
+  lifecycle_rule {
     condition {
       age = 1
     }
@@ -27,4 +28,11 @@ resource "google_storage_bucket" "demo-bucket" {
     }
   }
 
+}
+
+
+resource "google_bigquery_dataset" "demo_dataset" {
+  dataset_id = var.bq_dataset_name
+  # project    = "sinuous-studio-412717"
+  location = var.location
 }
