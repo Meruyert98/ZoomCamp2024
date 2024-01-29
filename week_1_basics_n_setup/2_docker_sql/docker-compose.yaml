@@ -1,6 +1,5 @@
 services:
   pgdatabase:
-    # container_name: postgres:13
     image: postgres:13
     restart: always
     environment:
@@ -8,17 +7,14 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
     volumes:
-      - "/ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
     ports:
       - "5432:5432"
   pgadmin:
-    # container_name: pgadmin
-    image: dbpage/pgadmin4
+    image: dpage/pgadmin4
     restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
-    # volumes:
-    #    - "./pgAdmin_data:/var/lib/pgadmin"
     ports:
       - "8080:80"

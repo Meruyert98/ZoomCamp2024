@@ -22,31 +22,37 @@ docker build -t taxi_ingest:v001 .
 # 3)
 URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
 docker run -it \
-  --network=pg-network \
   taxi_ingest:v001 \
     --user=root \
     --password=root \
-    --host=pg-database \
+    --host=pgdatabase \
     --port=5432 \
     --db=ny_taxi \
     --table_name=green_taxi_trips \
     --url=${URL}
 
-# for test: pgcli -h localhost -p 5433 -u root -d ny_taxi
+python ingest_data.py \
+	--user=root \
+	--password=root \
+	--host=localhost \
+	--port=5432 \
+	--db=ny_taxi \
+	--table_name=green_taxi_trips \
+	--url=${URL}
+
+# for test: pgcli -h localhost -p 5432 -u root -d ny_taxi
 
 # 4)
 URL="https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
 docker run -it \
-  --network=pg-network \
   taxi_ingest:v001 \
     --user=root \
     --password=root \
-    --host=pg-database \
+    --host=pgdatabase \
     --port=5432 \
     --db=ny_taxi \
-    --table_name=taxi_zones \
+    --table_name=zones \
     --url=${URL}
-
 
 # ---------------
 # SQL
@@ -58,7 +64,7 @@ docker run -it \
 # where lpep_pickup_datetime >= TO_TIMESTAMP('2019/09/18 00:00:0', 'YYYY/MM/DD HH24:MI:ss')
 # and lpep_dropoff_datetime <= TO_TIMESTAMP('2019/09/18 23:59:59', 'YYYY/MM/DD HH24:MI:ss')
 
-# A:20530
+# 15612
 
 # 4
 # SELECT lpep_pickup_datetime,max(trip_distance) as max_Dist
@@ -67,8 +73,7 @@ docker run -it \
 # order by max_Dist desc
 # limit 1;
 
-# A: 2019-01-15
-
+# 2019-09-26
 
 # 5
 # SELECT passenger_count,count(1)
@@ -92,4 +97,4 @@ docker run -it \
 # order by max_tip desc
 # limit 1;
 
-# A: Long Island City/Queens Plaza
+# JFK Airport
