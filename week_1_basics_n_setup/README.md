@@ -332,20 +332,9 @@ IaC allows us to build, change and manage an application infrastructure using co
 
 In this part, Sejal Vaidya shows us how to create a new project in GCP and a new service account. A service account consists of an account for a specific servica (like a data pipeline, web service, etc). Everything that this service needs to access (e.g., resources) is configured in its account. Therefore, it has restricted permissions to use only the resources that it needs.
 
-**How to install Gcloud (Ubuntu):** follow [these instructions](https://cloud.google.com/sdk/docs/install#deb). After installing, type ```gcloud -v``` in the terminal. The output must be something like this:
-
-	Google Cloud SDK 414.0.0
-	alpha 2023.01.13
-	beta 2023.01.13
-	bq 2.0.84
-	bundled-python3-unix 3.9.16
-	core 2023.01.13
-	gcloud-crc32c 1.0.0
-	gsutil 5.18
-
 **Step 1:** after creating a service account key (watch lesson video at [10:29](https://www.youtube.com/watch?v=Hajwnmj0xfQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=11&t=629s)), we need to export the GOOGLE_APPLICATION_CREDENTIALS variable (change the path below to the correct one in your machine).
 ```
-export GOOGLE_APPLICATION_CREDENTIALS="/home/padilha/projects/de-zoomcamp/dtc-de-375514-849c13503247.json"
+export GOOGLE_CREDENTIALS='/workspaces/ZoomCamp2024/week_1_basics_n_setup/1_terraform_gcp/terraform/keys/my_creds.json'
 
 # Refresh token, and verify authentication
 gcloud auth application-default login
@@ -372,9 +361,9 @@ terraform apply
 
 The output of the terraform apply command must be something similar to:
 
-	google_bigquery_dataset.dataset: Creating...
-	google_storage_bucket.data-lake-bucket: Creating...
-	google_bigquery_dataset.dataset: Creation complete after 2s [id=projects/dtc-de-375514/datasets/trips_data_all]
-	google_storage_bucket.data-lake-bucket: Creation complete after 4s [id=dtc_data_lake_dtc-de-375514]
+	google_bigquery_dataset.demo_dataset: Creating...
+	google_storage_bucket.demo-bucket: Creating...
+	google_bigquery_dataset.demo_dataset: Creation complete after 2s [id=projects/sinuous-studio-412717/datasets/demo_dataset]
+	google_storage_bucket.demo-bucket: Creation complete after 2s [id=sinuous-studio-412717-terra-bucket]
 
 	Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
