@@ -148,7 +148,7 @@ python ingest_data.py \
 DROP TABLE yellow_taxi_data;
 ```
 
-Then, dockerize the ingestion script (see [Dockerfile](./Dockerfile)), build and run the container.
+Then, dockerize the ingestion script (see [Dockerfile](./week_1_basics_n_setup/2_docker_sql/Dockerfile)), build and run the container.
 ```
 docker build -t taxi_ingest:v001 .
 
@@ -179,7 +179,7 @@ sudo apt-get update
 sudo apt-get install docker-compose-plugin
 ```
 
-**Step 2:** write a [docker-compose.yaml](./docker-compose.yaml) file. Note that in this file we do not specify the network name, since docker compose will already consider the specified services as part of the same network.
+**Step 2:** write a [docker-compose.yaml](./week_1_basics_n_setup/2_docker_sql/docker-compose.yaml) file. Note that in this file we do not specify the network name, since docker compose will already consider the specified services as part of the same network.
 
 **Step 3:** start docker compose.
 ```
@@ -212,10 +212,13 @@ docker compose up -d
 
 In this video, Alexey Grigorev reviews some simple SQL statements that we can use to perform joins, group by, order by, etc. Below, I just compiled a few of them, since the rest consist of some small variations to illustrate the concepts he talks about.
 
-**Step 1:** run [ingest_taxi_zone_lookup.py](./ingest_taxi_zone_lookup.py), which downloads Taxi Zone Lookup Table and ingests the data to the ny_taxi database.
+**Step 1:** run [upload-data.ipynb](./week_1_basics_n_setup/2_docker_sql/upload-data.ipynb), which downloads Taxi Zone Lookup Table and ingests the data to the ny_taxi database.
 ```
-docker compose up
-python ingest_taxi_zone_lookup.py
+!wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
+df_zones = pd.read_csv('taxi+_zone_lookup.csv')
+df_zones.head()
+df_zones.to_sql(name='zones', con=engine, if_exists='replace')
+
 ```
 
 **Step 2:** checking the records of zones and yellow_taxi_trips.
