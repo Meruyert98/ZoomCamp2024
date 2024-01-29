@@ -76,14 +76,19 @@ docker run -it \
 # 2019-09-26
 
 # 5
-# SELECT passenger_count,count(1)
-# from green_taxi_trips
-# where  lpep_pickup_datetime >= TO_TIMESTAMP('2019/09/18 00:00:0', 'YYYY/MM/DD HH24:MI:ss')
+# SELECT zpu."Borough", sum(total_amount)
+# FROM
+# 	green_taxi_trips t
+# LEFT JOIN zones zpu ON t."PULocationID" = zpu."LocationID"
+#     LEFT JOIN zones zdo ON t."DOLocationID" = zdo."LocationID"
+# 	where  lpep_pickup_datetime >= TO_TIMESTAMP('2019/09/18 00:00:0', 'YYYY/MM/DD HH24:MI:ss')
 # and lpep_pickup_datetime <= TO_TIMESTAMP('2019/09/18 23:59:59', 'YYYY/MM/DD HH24:MI:ss')
-# and (passenger_count =2 or passenger_count =3)
-# group by passenger_count;
+# group by zpu."Borough"
+# having sum(total_amount)>50000;
 
-# A: 2: 1282 ; 3: 254
+# "Brooklyn"	96333.23999999923
+# "Manhattan"	92271.29999999987
+# "Queens"	78671.70999999875
 
 # 6
 # select "drtz"."Zone",max(tip_amount) as max_tip
