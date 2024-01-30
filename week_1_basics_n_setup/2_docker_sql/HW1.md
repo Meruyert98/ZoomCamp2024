@@ -1,12 +1,13 @@
-# Q1: Which tag has the following text? - Automatically remove the container when it exits
+## Week 1 Homework
+
+#### Q1: Which tag has the following text? - Automatically remove the container when it exits
 ```
 docker build --help
 docker run --help
 ```
  --rm
-# ---------------
 
-# Q2: What is version of the package wheel ?
+#### Q2: What is version of the package wheel ?
 ```
 docker run -it --entrypoint=bash python:3.9
 pip list
@@ -14,9 +15,7 @@ pip list
 ```
 0.42.0
 
-# ---------------
-
-# Q3:
+#### Q3:
 
 Run Postgres and load data green taxi trips from September 2019 with a pipeline:
 
@@ -62,11 +61,10 @@ df_zones.head()
 df_zones.to_sql(name='zones', con=engine, if_exists='replace')
 ```
 
-# ---------------
-# SQL
+#### SQL
 
 
-# 3
+#### Q3
 
 ```sql
 SELECT count(*)
@@ -77,7 +75,7 @@ and lpep_dropoff_datetime <= TO_TIMESTAMP('2019/09/18 23:59:59', 'YYYY/MM/DD HH2
 
 15612
 
-# 4
+#### Q4
 ```sql
 SELECT lpep_pickup_datetime,max(trip_distance) as max_Dist
 from green_taxi_trips
@@ -88,7 +86,7 @@ limit 1;
 
 2019-09-26
 
-# 5
+#### Q5
 ```sql
 SELECT zpu."Borough", sum(total_amount)
 FROM
@@ -106,7 +104,7 @@ LEFT JOIN zones zpu ON t."PULocationID" = zpu."LocationID"
 "Manhattan"	92271.29999999987
 "Queens"	78671.70999999875
 
-# 6
+#### Q6
 ```sql
 select "drtz"."Zone",max(tip_amount) as max_tip
 from taxi_zones "pultz"
@@ -122,7 +120,7 @@ limit 1;
 ```
 JFK Airport
 
-# 7
+#### Q7
 ```
 terraform apply
 ```
