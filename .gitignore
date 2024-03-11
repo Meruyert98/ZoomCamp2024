@@ -189,3 +189,5 @@ google-cloud-sdk
 #Terraform 
 terraform/
 
+#Rising
+workshop_rising/*

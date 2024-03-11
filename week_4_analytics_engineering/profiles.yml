@@ -1,0 +1,37 @@
+# pg-dbt-workshop: # Postgres
+#   target: dev
+#   outputs:
+#     dev:
+#       type: postgres
+#       host: localhost
+#       user: root 
+#       password: root
+#       port: 5432
+#       dbname: production
+#       schema: dbt_schema
+#       threads: 4
+#       keepalives_idle: 0 # default 0, indicating the system default
+taxi_rides_ny:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: root
+      password: root
+      port: 5432
+      dbname: ny_taxi
+      schema: public
+      threads: 1
+      connect_timeout: 30
+
+bg-de-zoomcamp: # BigQuery
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: taxi-rides-ny
+      dataset: dbt_ds
+      threads: 4
+      keyfile: my_key_file.json
